@@ -34,6 +34,7 @@ body {
 .imageText {
   font-family: "Helvetica Neue", Helvetica, Arial, "Roboto", "Noto Sans",
     sans-serif;
+  font-weight: bold;
 }
 
 ::selection {
@@ -67,6 +68,40 @@ button:hover {
   color: #f33;
   background: linear-gradient(to bottom, #700, #400);
   box-shadow: 0 0 2vw rgba(230, 0, 0, 0.8);
+}
+
+/* YES=緑(赤ボタンの緑版) / NO=既定の赤ボタンのまま。
+   id に紐づくため、左右の配置が入れ替わっても色は不変 */
+#yes {
+  color: #3a3;
+  background: linear-gradient(to bottom, #004d00, #003300);
+  box-shadow: 0 0 1vw rgba(0, 200, 0, 0.8);
+}
+
+#yes:hover {
+  color: #3f3;
+  background: linear-gradient(to bottom, #070, #040);
+  box-shadow: 0 0 2vw rgba(0, 200, 0, 0.8);
+}
+
+/* YES/NO を急かすシークバー(画面上部・5秒でゼロになる。時間切れでも遷移はしない) */
+.seek-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: max(24px, 2.2vw);
+  background: rgba(40, 0, 0, 0.55);
+  z-index: 20;
+  overflow: hidden;
+}
+
+.seek-fill {
+  width: 100%;
+  height: 100%;
+  transform-origin: left center;
+  background: linear-gradient(to bottom, #f33, #900);
+  box-shadow: 0 0 1.2vw rgba(230, 0, 0, 0.9);
 }
 
 @keyframes blink {
@@ -115,15 +150,80 @@ button:hover {
 }
 
 .textButton {
-  width: max(80px, 8.3vw); /* ボタンの幅 */
-  height: max(80px, 8.3vw); /* ボタンの高さ */
+  width: max(70px, 7vw); /* ボタンの幅 */
+  height: max(70px, 7vw); /* ボタンの高さ */
   border: 0.1px solid white; /* 白い枠 */
   background-color: black; /* 黒い背景 */
   color: white; /* 文字色 */
-  font-size: max(40px, 4vw); /* フォントサイズ */
+  font-size: max(34px, 3.4vw); /* フォントサイズ */
   font-weight: bold;
   text-align: center; /* テキストを中央揃え */
   cursor: pointer;
-  line-height: max(80px, 8.3vw); /* テキストを垂直方向に中央揃え */
+  line-height: max(70px, 7vw); /* テキストを垂直方向に中央揃え */
   outline: none; /* ボタンにフォーカス時の枠を消す */
+}
+
+/* 上下左右→色の対応を示す縁のバー(上=赤 / 下=青 / 左=オレンジ / 右=緑) */
+.dir-bar {
+  position: absolute;
+  z-index: 6;
+}
+.dir-bar.top {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: max(14px, 1.4vw);
+  background-color: #cc3333;
+}
+.dir-bar.bottom {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: max(14px, 1.4vw);
+  background-color: #3366cc;
+}
+.dir-bar.left {
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: max(14px, 1.4vw);
+  background-color: #e67e22;
+}
+.dir-bar.right {
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: max(14px, 1.4vw);
+  background-color: #2e9c46;
+}
+
+/* 問題ページ右側の凡例(すべての矢印に色が対応していることを示す) */
+.dir-legend {
+  position: absolute;
+  bottom: max(50px, 5vw);
+  right: max(40px, 4vw);
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: max(6px, 0.6vw);
+  z-index: 7;
+}
+.dir-legend .legend-card {
+  position: relative;
+  width: max(44px, 4.4vw);
+  height: max(44px, 4.4vw);
+  border-radius: max(6px, 0.6vw);
+}
+.dir-legend .legend-card img {
+  width: 100%;
+  height: 100%;
+  clip-path: inset(6%);
+}
+.dir-legend .legend-card span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: max(22px, 2.2vw);
+  font-weight: bold;
+  color: #000;
 }
