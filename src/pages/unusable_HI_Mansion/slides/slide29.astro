@@ -45,6 +45,11 @@ import ghost_teacher from './Images/_ghost_teacher.png';
     .marquee-track .textButton {
       flex-shrink: 0;
       margin-right: 3.5vw;
+      /* 4行に収めるためカードを縮小(このクイズ内だけにスコープ) */
+      width: max(70px, 7vw);
+      height: max(70px, 7vw);
+      font-size: max(34px, 3.4vw);
+      line-height: max(70px, 7vw);
     }
   </style>
   <div class="slide-content">
